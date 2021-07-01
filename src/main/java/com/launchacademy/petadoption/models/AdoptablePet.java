@@ -28,6 +28,7 @@ import org.hibernate.validator.constraints.URL;
 @Entity
 @Table(name = "adoptable_pets")
 public class AdoptablePet {
+
   @Id
   @SequenceGenerator(name = "adoptable_pets_generator", sequenceName = "adoptable_pets_id_seq", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "adoptable_pets_generator")

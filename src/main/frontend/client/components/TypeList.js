@@ -28,12 +28,7 @@ const TypeList = props => {
     return <TypeTile key={petType.id} petType={petType} />
   })
 
-  return (
-    <div className = "home">
-      {typeObjects}
-    </div>
-  )
+  return <div className="home">{typeObjects}</div>
 }
-
 
 export default TypeList

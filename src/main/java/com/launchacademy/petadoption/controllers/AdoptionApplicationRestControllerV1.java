@@ -24,28 +24,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/v1")
 public class AdoptionApplicationRestControllerV1 {
+
   private AdoptionApplicationService adoptionApplicationService;
   private AdoptablePetService adoptablePetService;
 
   @Autowired
   public AdoptionApplicationRestControllerV1(
-      AdoptionApplicationService adoptionApplicationService, AdoptablePetService adoptablePetService) {
+      AdoptionApplicationService adoptionApplicationService,
+      AdoptablePetService adoptablePetService) {
     this.adoptionApplicationService = adoptionApplicationService;
     this.adoptablePetService = adoptablePetService;
   }
 
   @PostMapping("/application")
   public ResponseEntity saveAdoptionApplication(@RequestBody @Valid
-      AdoptionApplicationFormValidator adoptionApplicationFormValidator, BindingResult bindingResult) {
+      AdoptionApplicationFormValidator adoptionApplicationFormValidator,
+      BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
       Map<String, String> errors = new HashMap<>();
       List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-      for(int i = 0; i < fieldErrors.size(); i++) {
-          errors.put(fieldErrors.get(i).getField(), fieldErrors.get(i).getDefaultMessage());
+      for (int i = 0; i < fieldErrors.size(); i++) {
+        errors.put(fieldErrors.get(i).getField(), fieldErrors.get(i).getDefaultMessage());
       }
       return new ResponseEntity<Map>(errors, HttpStatus.NOT_ACCEPTABLE);
     }
-    return new ResponseEntity<>(adoptionApplicationService.saveApplication(adoptionApplicationFormValidator), HttpStatus.OK);
+    return new ResponseEntity<>(
+        adoptionApplicationService.saveApplication(adoptionApplicationFormValidator),
+        HttpStatus.OK);
   }
 
   @GetMapping("/pending_applications")
@@ -54,7 +59,7 @@ public class AdoptionApplicationRestControllerV1 {
   }
 
   @DeleteMapping("/delete/{applicationId}")
-  public ResponseEntity deleteApplication (@PathVariable Integer applicationId) {
+  public ResponseEntity deleteApplication(@PathVariable Integer applicationId) {
     adoptionApplicationService.delete(applicationId);
     return new ResponseEntity(HttpStatus.OK);
   }
@@ -72,11 +77,12 @@ public class AdoptionApplicationRestControllerV1 {
 
   @PostMapping("/application/edit/{applicationId}")
   public ResponseEntity editAdoptionApplication(@RequestBody @Valid
-      AdoptionApplicationFormValidator adoptionApplicationFormValidator, BindingResult bindingResult, @PathVariable Integer applicationId) {
+      AdoptionApplicationFormValidator adoptionApplicationFormValidator,
+      BindingResult bindingResult, @PathVariable Integer applicationId) {
     if (bindingResult.hasErrors()) {
       Map<String, String> errors = new HashMap<>();
       List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-      for(int i = 0; i < fieldErrors.size(); i++) {
+      for (int i = 0; i < fieldErrors.size(); i++) {
         errors.put(fieldErrors.get(i).getField(), fieldErrors.get(i).getDefaultMessage());
       }
       return new ResponseEntity<Map>(errors, HttpStatus.NOT_ACCEPTABLE);
@@ -86,7 +92,8 @@ public class AdoptionApplicationRestControllerV1 {
   }
 
   @PostMapping("/application/update/{petId}/{applicationId}")
-  public ResponseEntity adminUpdate(@RequestBody Map<String, String> adminFormReplies, @PathVariable Integer petId, @PathVariable Integer applicationId) {
+  public ResponseEntity adminUpdate(@RequestBody Map<String, String> adminFormReplies,
+      @PathVariable Integer petId, @PathVariable Integer applicationId) {
     try {
       adoptionApplicationService.adminUpdate(adminFormReplies, applicationId);
       adoptablePetService.adminUpdate(adminFormReplies.get("applicationStatus"), petId);

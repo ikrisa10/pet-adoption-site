@@ -33,8 +33,16 @@ const App = props => {
             <Route exact path="/adoptions/new" component={SurrenderForm} />
             <Route exact path="/404" component={FourOFourTile} />
             <Route exact path="/pending_applications" component={ApplicationList} />
-            <Route exact path="/pending_applications/:applicationId/:id" component={AdoptionFormEdit} />
-            <Route exact path="/pending_applications/admin/:applicationId/:id" component={AdminAdoptionReview} />
+            <Route
+              exact
+              path="/pending_applications/:applicationId/:id"
+              component={AdoptionFormEdit}
+            />
+            <Route
+              exact
+              path="/pending_applications/admin/:applicationId/:id"
+              component={AdminAdoptionReview}
+            />
           </Switch>
         </div>
         <footer className="footer">Adopt A Pet</footer>

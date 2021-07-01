@@ -8,9 +8,9 @@ const AnimalTile = props => {
   } else {
     vaccinated = "No"
   }
-  if(props.adoptionStatus == "approved") {
+  if (props.adoptionStatus == "approved") {
     return (
-      <div className="cell">  
+      <div className="cell">
         <div className="card">
           <div>
             <h2>{props.name}</h2>
@@ -19,31 +19,33 @@ const AnimalTile = props => {
             <img className="images thumbnail" src={props.imgUrl}></img>
           </div>
           <div className="card-section">
-            <p>
-              Sussefully adopted and lives happily ever after!
-            </p>
+            <p>Sussefully adopted and lives happily ever after!</p>
           </div>
         </div>
       </div>
     )
   } else {
     return (
-      <div className="cell">  
+      <div className="cell">
         <div className="card">
           <div>
-            <h2><Link to={`/pets/${props.type}/${props.id}`}>{props.name}</Link></h2>
+            <h2>
+              <Link to={`/pets/${props.type}/${props.id}`}>{props.name}</Link>
+            </h2>
           </div>
           <Link to={`/pets/${props.type}/${props.id}`}>
             <img className="images thumbnail" src={props.imgUrl}></img>
           </Link>
           <div className="card-section">
             <p>
-              <strong>Age:</strong> {props.age} months<br/> 
+              <strong>Age:</strong> {props.age} months
+              <br />
               <strong>Vaccinated:</strong> {vaccinated}
             </p>
           </div>
         </div>
       </div>
-    )}
+    )
+  }
 }
 export default AnimalTile

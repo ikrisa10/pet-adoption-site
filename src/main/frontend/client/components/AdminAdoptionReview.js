@@ -67,7 +67,7 @@ const AdminAdoptionReview = props => {
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
-        throw error 
+        throw error
       } else {
         setRedirect(true)
       }
@@ -81,12 +81,12 @@ const AdminAdoptionReview = props => {
     getFormData()
   }, [])
 
-    const isFormComplete = () => {
+  const isFormComplete = () => {
     let submitErrors = {}
     const requiredFields = ["applicationStatus", "adminComments"]
     requiredFields.forEach(field => {
       if (adminForm[field].trim() === "") {
-        submitErrors = {...submitErrors, [field]: "is required." }
+        submitErrors = { ...submitErrors, [field]: "is required." }
       }
     })
     setErrors(submitErrors)
@@ -119,7 +119,7 @@ const AdminAdoptionReview = props => {
   }
 
   if (redirect) {
-    return <Redirect to="/pending_applications"/>
+    return <Redirect to="/pending_applications" />
   }
 
   return (
@@ -128,7 +128,9 @@ const AdminAdoptionReview = props => {
         <h1>{animal.name}</h1>
         <img className="images thumbnail" src={animal.imgUrl}></img>
         <ul className="no-bullet">
-          <li><strong>Age:</strong> {animal.age} months old</li>
+          <li>
+            <strong>Age:</strong> {animal.age} months old
+          </li>
           <li>
             <strong>{animal.name}'s story:</strong> {animal.adoptionStory}
           </li>
@@ -139,41 +141,51 @@ const AdminAdoptionReview = props => {
         <div>
           <h2>Applicant Info:</h2>
           <p>
-            Name: {applicationInfo.name}<br/>
-            Phone: {applicationInfo.phoneNumber}<br/>
-            Email: {applicationInfo.email}<br/>
-            Home Status: {applicationInfo.homeStatus}<br/>
+            Name: {applicationInfo.name}
+            <br />
+            Phone: {applicationInfo.phoneNumber}
+            <br />
+            Email: {applicationInfo.email}
+            <br />
+            Home Status: {applicationInfo.homeStatus}
+            <br />
           </p>
         </div>
-        <form className="adoption_app" onSubmit={handleSubmit}> 
+        <form className="adoption_app" onSubmit={handleSubmit}>
           <div>
             <Error errors={errors} />
           </div>
           <label htmlFor="applicationStatus">
-              Admin Decision:
-              <select
-                id="applicationStatus"
-                name="applicationStatus"
-                onChange={handleChange}
-                value={adminForm.applicationStatus}
-              >
-                <option value="">Please Select</option>
-                <option value="approved">Approved</option>
-                <option value="denied">Denied</option>
-              </select>
+            Admin Decision:
+            <select
+              id="applicationStatus"
+              name="applicationStatus"
+              onChange={handleChange}
+              value={adminForm.applicationStatus}
+            >
+              <option value="">Please Select</option>
+              <option value="approved">Approved</option>
+              <option value="denied">Denied</option>
+            </select>
           </label>
           <label htmlFor="adminComments">
             Please provide comments on your decision:
-            <textarea id="adminComments" name="adminComments" onChange={handleChange} value={adminForm.adminComments} placeholder="Type comments here..."></textarea>
+            <textarea
+              id="adminComments"
+              name="adminComments"
+              onChange={handleChange}
+              value={adminForm.adminComments}
+              placeholder="Type comments here..."
+            ></textarea>
           </label>
           <input className="button" type="submit" value="Process" />
         </form>
       </div>
-      <br/>
-      <br/>
-      <br/>
+      <br />
+      <br />
+      <br />
     </div>
   )
 }
 
-export default AdminAdoptionReview 
+export default AdminAdoptionReview

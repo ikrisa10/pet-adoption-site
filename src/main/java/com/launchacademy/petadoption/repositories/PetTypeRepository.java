@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PetTypeRepository extends PagingAndSortingRepository<PetType, Integer> {
+
   public Optional<PetType> findByTypeIgnoreCase(String type);
 }

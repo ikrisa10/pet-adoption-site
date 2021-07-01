@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Service
 public class AdoptablePetService {
+
   private AdoptablePetRepository adoptablePetRepository;
   private PetTypeRepository petTypeRepository;
 
   @Autowired
-  public AdoptablePetService(AdoptablePetRepository adoptablePetRepository, PetTypeRepository petTypeRepository) {
+  public AdoptablePetService(AdoptablePetRepository adoptablePetRepository,
+      PetTypeRepository petTypeRepository) {
     this.adoptablePetRepository = adoptablePetRepository;
     this.petTypeRepository = petTypeRepository;
   }
@@ -34,16 +36,17 @@ public class AdoptablePetService {
     this.adoptablePetRepository.save(adoptablePet);
   }
 
-  public List<AdoptablePet> findByPetType (String type) {
-    PetType petType = this.petTypeRepository.findByTypeIgnoreCase(type).orElseThrow(() -> new UrlNotFoundException());
+  public List<AdoptablePet> findByPetType(String type) {
+    PetType petType = this.petTypeRepository.findByTypeIgnoreCase(type)
+        .orElseThrow(() -> new UrlNotFoundException());
     return this.adoptablePetRepository.findAllByPetType(petType.getId());
   }
 
   public List<AdoptablePet> findAvailablePetsByType(String type) {
     List<AdoptablePet> availablePets = new ArrayList<>();
     List<AdoptablePet> allPets = this.findByPetType(type);
-    for(AdoptablePet adoptablePet : allPets) {
-      if(adoptablePet.getAdoptionStatus().equals("denied")) {
+    for (AdoptablePet adoptablePet : allPets) {
+      if (adoptablePet.getAdoptionStatus().equals("denied")) {
         availablePets.add(adoptablePet);
       }
     }
@@ -53,8 +56,8 @@ public class AdoptablePetService {
   public List<AdoptablePet> findHappyAdoptedPets() {
     List<AdoptablePet> allPets = this.findAll();
     List<AdoptablePet> happyAdoptedPets = new ArrayList<>();
-    for(AdoptablePet adoptablePet : allPets) {
-      if(adoptablePet.getAdoptionStatus().equals("approved")) {
+    for (AdoptablePet adoptablePet : allPets) {
+      if (adoptablePet.getAdoptionStatus().equals("approved")) {
         happyAdoptedPets.add(adoptablePet);
       }
     }
@@ -66,10 +69,15 @@ public class AdoptablePetService {
   }
 
   @NoArgsConstructor
-  private class UrlNotFoundException extends RuntimeException {};
+  private class UrlNotFoundException extends RuntimeException {
+
+  }
+
+  ;
 
   @ControllerAdvice
   private class UrlNotFoundAdvice {
+
     @ResponseBody
     @ExceptionHandler(UrlNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -79,6 +87,7 @@ public class AdoptablePetService {
   }
 
   public AdoptablePet findById(Integer animalId) {
-    return this.adoptablePetRepository.findById(animalId).orElseThrow(() -> new UrlNotFoundException());
+    return this.adoptablePetRepository.findById(animalId)
+        .orElseThrow(() -> new UrlNotFoundException());
   }
 }

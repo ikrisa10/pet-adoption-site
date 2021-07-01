@@ -14,11 +14,11 @@ const HappyAdoptedAnimals = props => {
         const error = new Error(errorMessage)
         throw error
       } else if (response.status == 404) {
-        setRedirect(true) 
+        setRedirect(true)
       } else {
         const fetchedData = await response.json()
         setAnimalType(fetchedData)
-      }  
+      }
     } catch (error) {
       console.error(error)
     }
@@ -47,7 +47,13 @@ const HappyAdoptedAnimals = props => {
     return <Redirect to="/404" />
   }
 
-  return <div>{petList}<br/><br/></div>
+  return (
+    <div>
+      {petList}
+      <br />
+      <br />
+    </div>
+  )
 }
 
 export default HappyAdoptedAnimals

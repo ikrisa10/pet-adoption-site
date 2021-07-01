@@ -23,6 +23,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "adoption_applications")
 public class AdoptionApplication {
+
   @Id
   @SequenceGenerator(name = "adoption_applications_generator", sequenceName = "adoption_applications_id_seq", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "adoption_applications_generator")

@@ -14,11 +14,11 @@ const ApplicationList = props => {
         const error = new Error(errorMessage)
         throw error
       } else if (response.status == 404) {
-        setRedirect(true) 
+        setRedirect(true)
       } else {
         const fetchedData = await response.json()
         setPendingApplications(fetchedData)
-      }  
+      }
     } catch (error) {
       console.error(error)
     }
@@ -47,7 +47,13 @@ const ApplicationList = props => {
     return <Redirect to="/404" />
   }
 
-  return <div>{applicationList}<br/><br/></div>
+  return (
+    <div>
+      {applicationList}
+      <br />
+      <br />
+    </div>
+  )
 }
 
 export default ApplicationList

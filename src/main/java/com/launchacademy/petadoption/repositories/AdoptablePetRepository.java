@@ -18,5 +18,6 @@ public interface AdoptablePetRepository extends PagingAndSortingRepository<Adopt
   @Modifying
   @Transactional
   @Query("update AdoptablePet p set adoption_status = :applicationStatus where id = :petId")
-  public void adminUpdate(@Param("applicationStatus") String applicationStatus, @Param("petId") Integer petId);
+  public void adminUpdate(@Param("applicationStatus") String applicationStatus,
+      @Param("petId") Integer petId);
 }

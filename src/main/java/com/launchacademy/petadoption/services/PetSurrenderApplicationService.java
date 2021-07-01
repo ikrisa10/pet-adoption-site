@@ -10,28 +10,32 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PetSurrenderApplicationService {
+
   private PetSurrenderApplicationRepository petSurrenderApplicationRepository;
   private PetTypeRepository petTypeRepository;
 
   @Autowired
   public PetSurrenderApplicationService(
-      PetSurrenderApplicationRepository petSurrenderApplicationRepository, PetTypeRepository petTypeRepository) {
+      PetSurrenderApplicationRepository petSurrenderApplicationRepository,
+      PetTypeRepository petTypeRepository) {
     this.petSurrenderApplicationRepository = petSurrenderApplicationRepository;
     this.petTypeRepository = petTypeRepository;
   }
 
-  public PetSurrenderApplication savePetSurrenderApplication (PetSurrenderFormValidator petSurrenderFormValidator) {
+  public PetSurrenderApplication savePetSurrenderApplication(
+      PetSurrenderFormValidator petSurrenderFormValidator) {
     PetSurrenderApplication petSurrenderApplication = new PetSurrenderApplication();
     petSurrenderApplication.setName(petSurrenderFormValidator.getName());
     petSurrenderApplication.setPhoneNumber(petSurrenderFormValidator.getPhoneNumber());
     petSurrenderApplication.setEmail(petSurrenderFormValidator.getEmail());
     petSurrenderApplication.setPetName(petSurrenderFormValidator.getPetName());
-    if(petSurrenderFormValidator.getPetAge() != null) {
+    if (petSurrenderFormValidator.getPetAge() != null) {
       petSurrenderApplication.setPetAge(petSurrenderFormValidator.getPetAge());
     }
     petSurrenderApplication.setPetImageUrl(petSurrenderFormValidator.getPetImageUrl());
     petSurrenderApplication.setVaccinationStatus(petSurrenderFormValidator.getVaccinationStatus());
-    PetType petType = this.petTypeRepository.findByTypeIgnoreCase(petSurrenderFormValidator.getPetType()).orElseThrow();
+    PetType petType = this.petTypeRepository
+        .findByTypeIgnoreCase(petSurrenderFormValidator.getPetType()).orElseThrow();
     petSurrenderApplication.setPetType(petType);
     return this.petSurrenderApplicationRepository.save(petSurrenderApplication);
   }

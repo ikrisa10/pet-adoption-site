@@ -78,7 +78,9 @@ const AnimalShow = props => {
         <h1>{animal.name}</h1>
         <img className="images thumbnail" src={animal.imgUrl}></img>
         <ul className="no-bullet">
-          <li><strong>Age:</strong> {animal.age} months old</li>
+          <li>
+            <strong>Age:</strong> {animal.age} months old
+          </li>
           <li>
             <strong>{animal.name}'s story:</strong> {animal.adoptionStory}
           </li>
@@ -88,9 +90,9 @@ const AnimalShow = props => {
         </ul>
       </div>
       {whatToShow}
-      <br/>
-      <br/>
-      <br/>
+      <br />
+      <br />
+      <br />
     </div>
   )
 }
