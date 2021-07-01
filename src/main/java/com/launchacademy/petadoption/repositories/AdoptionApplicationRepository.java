@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface AdoptionApplicationRepository extends PagingAndSortingRepository<AdoptionApplication, Integer> {
+public interface AdoptionApplicationRepository extends
+    PagingAndSortingRepository<AdoptionApplication, Integer> {
+
   @Query("select a from AdoptionApplication a where application_status = 'pending'")
   public List<AdoptionApplication> findPendingApplications();
 
@@ -24,5 +26,6 @@ public interface AdoptionApplicationRepository extends PagingAndSortingRepositor
   @Modifying
   @Transactional
   @Query("update AdoptionApplication a set application_status = :applicationStatus, admin_comments = :adminComments where id = :applicationId")
-  public void adminUpdate(@Param("applicationStatus") String applicationStatus, @Param("adminComments") String adminComments, @Param("applicationId") Integer applicationId);
+  public void adminUpdate(@Param("applicationStatus") String applicationStatus,
+      @Param("adminComments") String adminComments, @Param("applicationId") Integer applicationId);
 }

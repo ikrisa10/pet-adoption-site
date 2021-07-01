@@ -34,7 +34,7 @@ const AdoptionFormEdit = props => {
   useEffect(() => {
     getForm()
   }, [])
-  
+
   const editApplication = async () => {
     let formPayload = newAdoption
     formPayload.adoptablePetId = props.match.params.id
@@ -50,28 +50,28 @@ const AdoptionFormEdit = props => {
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
         throw error
-      } else if(response.status == 406) {
-        const body = await response.json() 
-        setErrors(body) 
+      } else if (response.status == 406) {
+        const body = await response.json()
+        setErrors(body)
       } else {
-        setRedirect(true)          
-        }
+        setRedirect(true)
+      }
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)
     }
   }
 
-  // const isFormComplete = () => {
-  //   let submitErrors = {}
-  //   const requiredFields = ["name", "phoneNumber", "email", "homeStatus"]
-  //   requiredFields.forEach(field => {
-  //     if (newAdoption[field].trim() === "") {
-  //       submitErrors = {...submitErrors, [field]: "is required." }
-  //     }
-  //   })
-  //   setErrors(submitErrors)
-  //   return _.isEmpty(submitErrors)
-  // }
+  const isFormComplete = () => {
+    let submitErrors = {}
+    const requiredFields = ["name", "phoneNumber", "email", "homeStatus"]
+    requiredFields.forEach(field => {
+      if (newAdoption[field].trim() === "") {
+        submitErrors = { ...submitErrors, [field]: "is required." }
+      }
+    })
+    setErrors(submitErrors)
+    return _.isEmpty(submitErrors)
+  }
 
   const handleChange = event => {
     setNewAdoption({
@@ -82,9 +82,9 @@ const AdoptionFormEdit = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    // if (isFormComplete()) {
+    if (isFormComplete()) {
       editApplication(newAdoption)
-    // }
+    }
   }
 
   if (redirect) {
@@ -102,7 +102,13 @@ const AdoptionFormEdit = props => {
           <div className="medium-6 cell">
             <label htmlFor="name">
               Your name
-              <input id="name" type="text" name="name" onChange={handleChange} value={newAdoption.name} />
+              <input
+                id="name"
+                type="text"
+                name="name"
+                onChange={handleChange}
+                value={newAdoption.name}
+              />
             </label>
           </div>
 

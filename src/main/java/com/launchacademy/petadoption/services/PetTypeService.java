@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Service
 public class PetTypeService {
+
   private PetTypeRepository petTypeRepository;
 
   @Autowired
@@ -30,10 +31,13 @@ public class PetTypeService {
   }
 
   @NoArgsConstructor
-  private class UrlNotFoundException extends RuntimeException {};
+  private class UrlNotFoundException extends RuntimeException {
+
+  }
 
   @ControllerAdvice
   private class UrlNotFoundAdvice {
+
     @ResponseBody
     @ExceptionHandler(UrlNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -43,6 +47,7 @@ public class PetTypeService {
   }
 
   public PetType findByType(String type) {
-    return this.petTypeRepository.findByTypeIgnoreCase(type).orElseThrow(() -> new UrlNotFoundException());
+    return this.petTypeRepository.findByTypeIgnoreCase(type)
+        .orElseThrow(() -> new UrlNotFoundException());
   }
 }

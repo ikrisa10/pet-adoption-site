@@ -102,7 +102,7 @@ const SurrenderForm = props => {
                   onChange={handleInput}
                   value={newSurrender.name}
                 />
-              <span className="error">{errors.name}</span>
+                <span className="error">{errors.name}</span>
               </label>
             </div>
 
@@ -130,7 +130,7 @@ const SurrenderForm = props => {
                   onChange={handleInput}
                   value={newSurrender.email}
                 />
-              <span className="error">{errors.email}</span>
+                <span className="error">{errors.email}</span>
               </label>
             </div>
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 public class SurrenderApplicationRestControllerV1 {
+
   private PetSurrenderApplicationService petSurrenderApplicationService;
 
   @Autowired
@@ -33,12 +34,14 @@ public class SurrenderApplicationRestControllerV1 {
     if (bindingResult.hasErrors()) {
       Map<String, String> errors = new HashMap<>();
       List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-      for(int i = 0; i < fieldErrors.size(); i++) {
+      for (int i = 0; i < fieldErrors.size(); i++) {
         errors.put(fieldErrors.get(i).getField(), fieldErrors.get(i).getDefaultMessage());
       }
       return new ResponseEntity<Map>(errors, HttpStatus.NOT_ACCEPTABLE);
     } else {
-      return new ResponseEntity<>(petSurrenderApplicationService.savePetSurrenderApplication(petSurrenderFormValidator), HttpStatus.OK);
+      return new ResponseEntity<>(
+          petSurrenderApplicationService.savePetSurrenderApplication(petSurrenderFormValidator),
+          HttpStatus.OK);
     }
   }
 }

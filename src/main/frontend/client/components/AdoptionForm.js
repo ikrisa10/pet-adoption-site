@@ -27,9 +27,9 @@ const AdoptionForm = props => {
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
         throw error
-      } else if(response.status == 406) {
-        const body = await response.json() 
-        setErrors(body) 
+      } else if (response.status == 406) {
+        const body = await response.json()
+        setErrors(body)
       } else {
         const body = await response.json()
         if (body) {
@@ -46,7 +46,7 @@ const AdoptionForm = props => {
     const requiredFields = ["name", "phoneNumber", "email", "homeStatus"]
     requiredFields.forEach(field => {
       if (newAdoption[field].trim() === "") {
-        submitErrors = {...submitErrors, [field]: "is required." }
+        submitErrors = { ...submitErrors, [field]: "is required." }
       }
     })
     setErrors(submitErrors)
@@ -78,7 +78,13 @@ const AdoptionForm = props => {
           <div className="medium-6 cell">
             <label htmlFor="name">
               Your name
-              <input id="name" type="text" name="name" onChange={handleChange} value={newAdoption.name} />
+              <input
+                id="name"
+                type="text"
+                name="name"
+                onChange={handleChange}
+                value={newAdoption.name}
+              />
             </label>
           </div>
 
@@ -94,8 +100,6 @@ const AdoptionForm = props => {
               />
             </label>
           </div>
-
-
 
           <div className="medium-6 cell">
             <label htmlFor="email">
